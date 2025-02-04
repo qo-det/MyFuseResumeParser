@@ -14,7 +14,7 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 # ✅ Load SpaCy Named Entity Recognition Model
 nlp = spacy.load("en_core_web_sm")
 
-# ✅ Load a **lighter-weight** Hugging Face Transformer Model
+
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")
 
 # ✅ Section Labels (AI-Based + Rule-Based Detection)
