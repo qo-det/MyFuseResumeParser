@@ -12,8 +12,8 @@ import docx
 # Configuration & Setup
 # --------------------------
 # Our API key variable is named foreverap.
-foreverap = "YOUR_FOREVERAP_API_KEY"  # Replace with your actual API key
-palm.configure(api_key=foreverapi)
+foreverap = "API_KEY_HERE"  # Replace with your actual API key
+palm.configure(api_key=foreverap)
 # Using Gemini Flash model (gemini-1.5-flash)
 modelpalm = palm.GenerativeModel('gemini-1.5-flash')
 
@@ -266,7 +266,7 @@ def main():
         }
     }
 
-    print("\n=== Final JSON Output ===")
+    
     print(json.dumps(final_json, indent=2))
 
 if __name__ == "__main__":

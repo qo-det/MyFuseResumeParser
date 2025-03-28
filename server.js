@@ -28,7 +28,7 @@ app.post("/extract", upload.single("file"), (req, res) => {
     return res.status(400).send({ error: "No file uploaded." });
   }
   const filePath = path.join(__dirname, req.file.path);
-
+  console.log(`Received file: ${filePath}`);
   // Spawn the Python process; pass the file path as an argument.
   const pythonProcess = spawn("python", ["MyFuseResumeParser.py", filePath]);
 
@@ -47,13 +47,21 @@ app.post("/extract", upload.single("file"), (req, res) => {
         .status(500)
         .send({ error: "Python script exited with code " + code });
     }
+    console.log("Raw Python output before trim:", dataToSend); // Log before trimming
+
+    const trimmedData = dataToSend.trim();
+
+    console.log("Trimmed Python output:", trimmedData); // Log after trimming
+
     try {
-      const jsonOutput = JSON.parse(dataToSend);
+      const jsonOutput = JSON.parse(trimmedData);
       res.json(jsonOutput);
     } catch (err) {
-      res
-        .status(500)
-        .send({ error: "Error parsing JSON output", details: dataToSend });
+      console.error("Error parsing JSON output:", err);
+      res.status(500).send({
+        error: "Error parsing JSON output from Python",
+        details: dataToSend,
+      });
     }
   });
 });
