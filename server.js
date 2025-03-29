@@ -30,7 +30,7 @@ app.post("/extract", upload.single("file"), (req, res) => {
   const filePath = path.join(__dirname, req.file.path);
   console.log(`Received file: ${filePath}`);
   // Spawn the Python process; pass the file path as an argument.
-  const pythonProcess = spawn("python", ["MyFuseResumeParser.py", filePath]);
+  const pythonProcess = spawn("python", ["MyFuseResumeParser_OpenAI.py", filePath]);
 
   let dataToSend = "";
   pythonProcess.stdout.on("data", (data) => {
